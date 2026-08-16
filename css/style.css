@@ -4,22 +4,22 @@
 /* Animated Hamburger to X Transition */
 #mobile-menu-btn .hamburger-bar {
   display: block;
-  width: 1.25rem;
+  width: 22px;
   height: 2px;
   background-color: currentColor;
   border-radius: 9999px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, margin 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   transform-origin: center;
 }
 
 #mobile-menu-btn .hamburger-bar:nth-child(2) {
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #mobile-menu-btn[aria-expanded="true"] .hamburger-bar:nth-child(1),
 #mobile-menu-btn.open .hamburger-bar:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
 
 #mobile-menu-btn[aria-expanded="true"] .hamburger-bar:nth-child(2),
@@ -30,5 +30,5 @@
 
 #mobile-menu-btn[aria-expanded="true"] .hamburger-bar:nth-child(3),
 #mobile-menu-btn.open .hamburger-bar:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
 }
