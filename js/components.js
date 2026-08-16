@@ -41,11 +41,13 @@
         if (isOpen) {
           mobileMenu.classList.remove('hidden');
           mobileMenuBtn.setAttribute('aria-expanded', 'true');
+          mobileMenuBtn.classList.add('open');
           if (iconOpen) iconOpen.classList.add('hidden');
           if (iconClose) iconClose.classList.remove('hidden');
         } else {
           mobileMenu.classList.add('hidden');
           mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          mobileMenuBtn.classList.remove('open');
           if (iconOpen) iconOpen.classList.remove('hidden');
           if (iconClose) iconClose.classList.add('hidden');
         }
