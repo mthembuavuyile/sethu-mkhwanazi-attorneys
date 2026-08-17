@@ -127,22 +127,46 @@
           </a>
         </div>
 
-        <!-- Interactive Quick Navigation Cards -->
+        <!-- Interactive Quick Navigation Cards & Search -->
         <div class="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 shadow-lg text-left">
-          <h2 class="font-serif text-lg sm:text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-            <i data-lucide="compass" class="w-5 h-5 text-accent"></i> Looking for something specific?
-          </h2>
-
-          <!-- Search Input Bar -->
-          <div class="relative mb-6">
-            <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"></i>
-            <input type="text" id="search-input" placeholder="Search services (e.g. Civil Litigation, Estate Planning)..."
-              class="w-full pl-11 pr-4 py-3 bg-muted/40 border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <h2 class="font-serif text-lg sm:text-xl font-semibold text-foreground flex items-center gap-2">
+              <i data-lucide="compass" class="w-5 h-5 text-accent"></i> Looking for something specific?
+            </h2>
+            <span id="search-keyboard-hint" class="text-xs text-muted-foreground hidden sm:inline-block">
+              Type to filter instantly
+            </span>
           </div>
 
-          <!-- Quick Navigation Links Grid -->
-          <p class="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">Popular Destinations</p>
-          <div id="quick-links-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Search Input Bar -->
+          <div class="relative mb-3">
+            <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none"></i>
+            <input type="text" id="search-input" placeholder="Search services (e.g. Civil Litigation, Estate Planning, CCMA, Divorce)..."
+              autocomplete="off" spellcheck="false" aria-label="Search legal services and pages"
+              class="w-full pl-11 pr-10 py-3 bg-muted/40 border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+            <button type="button" id="search-clear" class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground rounded-md transition-colors" aria-label="Clear search">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Quick Suggestion Tags -->
+          <div class="flex flex-wrap items-center gap-1.5 mb-6 text-xs" aria-label="Suggested search tags">
+            <span class="text-muted-foreground font-medium mr-1">Suggestions:</span>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Civil Litigation">Civil Litigation</button>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Corporate Law">Corporate Law</button>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Labour Law">Labour / CCMA</button>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Family Law">Family Law</button>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Wills">Wills & Estates</button>
+            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Consultation">Consultation</button>
+          </div>
+
+          <!-- Quick Navigation Links Grid / Live Search Results -->
+          <div class="flex items-center justify-between mb-3">
+            <p id="results-heading" class="text-xs font-semibold tracking-wider text-muted-foreground uppercase" aria-live="polite">Popular Destinations</p>
+            <span id="results-count" class="hidden text-xs text-accent font-medium"></span>
+          </div>
+
+          <div id="quick-links-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="list">
             <a href="services/index.html"
               class="flex items-center justify-between p-3.5 rounded-lg border border-border/60 hover:border-accent/50 hover:bg-accent/5 transition-all group card-hover">
               <div class="flex items-center gap-3">
