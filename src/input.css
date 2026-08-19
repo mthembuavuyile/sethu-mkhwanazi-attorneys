@@ -214,3 +214,114 @@ input[type="date"].has-value:before {
 .scroll-x-touch::-webkit-scrollbar {
   display: none;
 }
+
+/* Legal Service Navigator Chatbot Styles */
+.nav-breadcrumb-bar {
+  @apply flex items-center gap-2 px-4 py-2.5 bg-muted/30 border-b border-border text-sm overflow-x-auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav-breadcrumb-bar::-webkit-scrollbar {
+  display: none;
+}
+.nav-home-btn {
+  @apply text-muted-foreground hover:text-foreground transition-colors p-1 flex-shrink-0 cursor-pointer;
+}
+.nav-breadcrumb {
+  @apply flex items-center gap-2 whitespace-nowrap;
+}
+.nav-breadcrumb-sep {
+  @apply text-muted-foreground/50 flex items-center;
+}
+.nav-breadcrumb-link {
+  @apply text-[11px] font-medium text-muted-foreground hover:text-accent cursor-pointer transition-colors uppercase tracking-wider;
+}
+.nav-breadcrumb-current {
+  @apply text-[11px] font-semibold text-foreground uppercase tracking-wider;
+}
+
+.nav-messages-area {
+  @apply flex-grow p-5 overflow-y-auto bg-muted/20 scroll-smooth space-y-4;
+}
+
+.nav-message {
+  @apply flex flex-col items-start w-full;
+}
+
+.nav-bubble {
+  @apply bg-background border border-border shadow-sm p-3.5 rounded-2xl rounded-bl-sm text-sm text-foreground/90 leading-relaxed max-w-[90%];
+}
+.nav-bubble strong {
+  @apply text-foreground font-semibold;
+}
+
+.nav-options-area {
+  @apply p-4 bg-background border-t border-border flex flex-col gap-2.5 overflow-y-auto flex-shrink-0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav-options-area::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-option-card, .nav-action-card {
+  @apply flex items-center justify-between w-full p-3.5 bg-card border border-border/80 rounded-xl hover:border-accent/60 hover:bg-accent/5 hover:shadow-sm transition-all duration-200 cursor-pointer text-left;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.nav-action-card {
+  @apply border-accent/30 bg-accent/[0.02];
+}
+
+.nav-card-left {
+  @apply flex items-center gap-3.5;
+}
+
+.nav-card-icon {
+  @apply w-5 h-5 text-accent transition-transform;
+}
+
+.nav-option-card:hover .nav-card-icon,
+.nav-action-card:hover .nav-card-icon {
+  @apply scale-110;
+}
+
+.nav-card-label {
+  @apply text-sm font-medium text-foreground transition-colors;
+}
+
+.nav-option-card:hover .nav-card-label,
+.nav-action-card:hover .nav-card-label {
+  @apply text-accent;
+}
+
+.nav-card-chevron {
+  @apply w-4 h-4 text-muted-foreground/50 transition-all;
+}
+
+.nav-option-card:hover .nav-card-chevron,
+.nav-action-card:hover .nav-card-chevron {
+  @apply text-accent translate-x-1;
+}
+
+.nav-back-btn {
+  @apply flex items-center gap-2 mt-1 py-2 px-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors w-full cursor-pointer;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.nav-typing {
+  @apply flex items-center justify-center gap-1.5 p-3.5 bg-background border border-border shadow-sm rounded-2xl rounded-bl-sm w-16 h-10;
+}
+
+.nav-typing span {
+  @apply block w-1.5 h-1.5 bg-accent rounded-full opacity-60 animate-bounce;
+}
+.nav-typing span:nth-child(2) { animation-delay: 0.15s; }
+.nav-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
