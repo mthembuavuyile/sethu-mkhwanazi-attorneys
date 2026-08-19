@@ -106,7 +106,7 @@ function syncPage(page) {
     content = content.replace(/<!-- WHATSAPP_BTN_START -->[\s\S]*?<!-- WHATSAPP_BTN_END -->/, whatsappContent);
   } else {
     content = content.replace(/<!-- WhatsApp Button -->\s*<a href="https:\/\/wa\.me\/[\s\S]*?<\/a>/i, whatsappContent);
-    content = content.replace(/<a href="https:\/\/wa\.me\/27763000443[\s\S]*?<\/a>/i, whatsappContent);
+    content = content.replace(/<a href="https:\/\/wa\.me\/27[0-9]+[\s\S]*?<\/a>/i, whatsappContent);
   }
 
   // 4. Ensure components.js script tag is placed before </body>
