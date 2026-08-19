@@ -149,15 +149,17 @@
             </button>
           </div>
 
-          <!-- Quick Suggestion Tags -->
-          <div class="flex flex-wrap items-center gap-1.5 mb-6 text-xs" aria-label="Suggested search tags">
-            <span class="text-muted-foreground font-medium mr-1">Suggestions:</span>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Civil Litigation">Civil Litigation</button>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Corporate Law">Corporate Law</button>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Labour Law">Labour / CCMA</button>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Family Law">Family Law</button>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Wills">Wills & Estates</button>
-            <button type="button" class="search-tag px-2.5 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Consultation">Consultation</button>
+          <!-- Quick Suggestion Tags (Horizontal Scroll) -->
+          <div class="flex items-center gap-2 mb-6 text-xs w-full max-w-full" aria-label="Suggested search tags">
+            <span class="text-muted-foreground font-medium shrink-0">Suggestions:</span>
+            <div class="flex items-center gap-1.5 py-1 w-full min-w-0 scroll-x-touch">
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Civil Litigation">Civil Litigation</button>
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Corporate Law">Corporate Law</button>
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Labour Law">Labour / CCMA</button>
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Family Law">Family Law</button>
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Wills">Wills & Estates</button>
+              <button type="button" class="search-tag shrink-0 whitespace-nowrap px-3 py-1 rounded-full bg-muted/60 hover:bg-accent/15 hover:text-accent border border-border text-foreground transition-all cursor-pointer" data-query="Consultation">Consultation</button>
+            </div>
           </div>
 
           <!-- Quick Navigation Links Grid / Live Search Results -->
@@ -339,17 +341,16 @@
     <!-- WHATSAPP_BTN_START -->
 <a href="https://wa.me/27825945643?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20legal%20services."
   target="_blank" rel="noopener noreferrer"
-  class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
+  class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
   aria-label="Chat on WhatsApp (opens in new tab)">
   <i data-lucide="message-circle" class="h-6 w-6 sm:h-7 sm:w-7 text-white"></i>
   <span
-    class="absolute left-full ml-3 px-3 py-1.5 bg-foreground text-background text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block pointer-events-none shadow-md">
+    class="absolute right-full mr-3 px-3 py-1.5 bg-foreground text-background text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block pointer-events-none shadow-md">
     Chat on WhatsApp
   </span>
 </a>
 <!-- WHATSAPP_BTN_END -->
-
-    <!-- Legal Service Navigator Widget -->
+<!-- Legal Service Navigator Widget -->
     <div id="chatbot-widget" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans">
       <!-- Toggle Button -->
       <button id="chatbot-toggle" type="button" class="nav-toggle-btn flex items-center justify-center w-14 h-14 bg-accent text-accent-foreground rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent/40" aria-label="Open Legal Service Navigator">

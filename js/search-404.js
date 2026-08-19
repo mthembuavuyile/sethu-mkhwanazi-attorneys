@@ -301,6 +301,61 @@
         searchInput.focus();
       });
     });
+
+    // Horizontal Drag-to-Scroll & Mouse Wheel Scroll for Tags
+    const tagContainer = document.querySelector('.search-tag')?.parentElement;
+    if (tagContainer) {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      let isDragging = false;
+
+      tagContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isDragging = false;
+        tagContainer.classList.add('cursor-grabbing');
+        startX = e.pageX - tagContainer.offsetLeft;
+        scrollLeft = tagContainer.scrollLeft;
+      });
+
+      tagContainer.addEventListener('mouseleave', () => {
+        isDown = false;
+        tagContainer.classList.remove('cursor-grabbing');
+      });
+
+      tagContainer.addEventListener('mouseup', () => {
+        isDown = false;
+        tagContainer.classList.remove('cursor-grabbing');
+        setTimeout(() => { isDragging = false; }, 50);
+      });
+
+      tagContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - tagContainer.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        if (Math.abs(walk) > 5) {
+          isDragging = true;
+          e.preventDefault();
+          tagContainer.scrollLeft = scrollLeft - walk;
+        }
+      });
+
+      // Prevent button click trigger if user was dragging/swiping
+      tagContainer.addEventListener('click', (e) => {
+        if (isDragging) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+
+      // Convert mouse wheel vertical scroll to horizontal scroll
+      tagContainer.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          tagContainer.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+    }
   }
 
   // Initialize once DOM is ready
