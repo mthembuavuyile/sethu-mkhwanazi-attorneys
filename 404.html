@@ -349,39 +349,47 @@
 </a>
 <!-- WHATSAPP_BTN_END -->
 
-    <!-- Chatbot Widget -->
+    <!-- Legal Service Navigator Widget -->
     <div id="chatbot-widget" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans">
       <!-- Toggle Button -->
-      <button id="chatbot-toggle" type="button" class="flex items-center justify-center w-14 h-14 bg-accent text-accent-foreground rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent/40" aria-label="Open support chat">
-        <i data-lucide="bot" class="h-7 w-7"></i>
+      <button id="chatbot-toggle" type="button" class="nav-toggle-btn flex items-center justify-center w-14 h-14 bg-accent text-accent-foreground rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent/40" aria-label="Open Legal Service Navigator">
+        <i data-lucide="compass" class="h-7 w-7"></i>
       </button>
 
-      <!-- Chat Window -->
-      <div id="chatbot-window" class="hidden absolute bottom-0 right-0 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-background border border-border shadow-2xl rounded-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right translate-y-full opacity-0 scale-95" style="height: 500px; max-height: calc(100vh - 6rem);">
-        <!-- Chat Header -->
-        <div class="bg-accent text-accent-foreground p-4 flex items-center justify-between">
+      <!-- Navigator Window -->
+      <div id="chatbot-window" class="hidden absolute bottom-0 right-0 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-background border border-border shadow-2xl rounded-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right translate-y-full opacity-0 scale-95" style="height: 520px; max-height: calc(100vh - 6rem);">
+        <!-- Navigator Header -->
+        <div class="nav-header bg-accent text-accent-foreground p-4 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-background/20 flex items-center justify-center">
-              <i data-lucide="bot" class="w-6 h-6"></i>
+              <i data-lucide="compass" class="w-6 h-6"></i>
             </div>
             <div>
-              <h3 class="font-semibold text-sm">Sethu Virtual Assistant</h3>
-              <p class="text-[10px] opacity-80 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online</p>
+              <h3 class="font-semibold text-sm">Legal Service Navigator</h3>
+              <p class="text-[10px] opacity-80 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Ready to assist</p>
             </div>
           </div>
-          <button id="chatbot-close" type="button" class="p-2 hover:bg-background/20 rounded-md transition-colors" aria-label="Close chat">
+          <button id="chatbot-close" type="button" class="p-2 hover:bg-background/20 rounded-md transition-colors" aria-label="Close navigator">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <!-- Chat Messages Area -->
-        <div id="chatbot-messages" class="flex-grow p-4 overflow-y-auto bg-muted/20 scroll-smooth">
-          <!-- Messages will be injected here -->
+        <!-- Breadcrumb Bar -->
+        <div class="nav-breadcrumb-bar">
+          <button id="chatbot-home" type="button" class="nav-home-btn" aria-label="Return to main menu" style="display:none;">
+            <i data-lucide="home" class="w-3.5 h-3.5"></i>
+          </button>
+          <div id="chatbot-breadcrumb" class="nav-breadcrumb" style="display:none;"></div>
         </div>
 
-        <!-- Quick Replies Area -->
-        <div id="chatbot-quick-replies" class="px-4 py-3 pb-4 flex flex-wrap gap-2 border-t border-border bg-background">
-          <!-- Quick replies will be injected here -->
+        <!-- Messages Area -->
+        <div id="chatbot-messages" class="nav-messages-area flex-grow p-4 overflow-y-auto bg-muted/20 scroll-smooth">
+          <!-- Bot message injected here -->
+        </div>
+
+        <!-- Options Area (card-based, no text input) -->
+        <div id="chatbot-options" class="nav-options-area">
+          <!-- Option cards injected here -->
         </div>
       </div>
     </div>

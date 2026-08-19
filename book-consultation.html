@@ -515,6 +515,37 @@
         }
       });
     }
+
+    // ── Pre-fill from Navigator URL params ──
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var area = params.get('area');
+      var mode = params.get('mode');
+      
+      if (area) {
+        var matterSelect = document.getElementById('matterType');
+        if (matterSelect) {
+          for (var i = 0; i < matterSelect.options.length; i++) {
+            if (matterSelect.options[i].value === area) {
+              matterSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (mode) {
+        var modeSelect = document.getElementById('consultationMode');
+        if (modeSelect) {
+          for (var j = 0; j < modeSelect.options.length; j++) {
+            if (modeSelect.options[j].value === mode) {
+              modeSelect.selectedIndex = j;
+              break;
+            }
+          }
+        }
+      }
+    })();
   </script>
 </body>
 </html>
