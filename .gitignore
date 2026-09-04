@@ -16,4 +16,5 @@ Thumbs.db
 .vscode/
 .idea/
 
-_archi
+# Archives & Temporary
+_archive/

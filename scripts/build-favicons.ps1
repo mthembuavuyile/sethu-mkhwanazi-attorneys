@@ -1,13 +1,17 @@
 Add-Type -AssemblyName System.Drawing
 
-$masterPath = Resolve-Path "images\test-sm-large.png"
-$master = [System.Drawing.Bitmap]::FromFile($masterPath)
 $imagesDir = Resolve-Path "images"
 $rootDir = Resolve-Path "."
+$masterPath = Join-Path $imagesDir "android-chrome-512x512.png"
+
+# Read bytes into MemoryStream to avoid GDI+ file lock on the source file
+$bytes = [System.IO.File]::ReadAllBytes($masterPath)
+$msMaster = New-Object System.IO.MemoryStream(,$bytes)
+$master = [System.Drawing.Bitmap]::FromStream($msMaster)
 
 Write-Host "Master image loaded from $masterPath ($($master.Width)x$($master.Height))"
 
-function Create-Png {
+function New-FaviconPng {
     param([int]$sz, [string]$outPath)
     $bmp = New-Object System.Drawing.Bitmap($sz, $sz, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
     $g = [System.Drawing.Graphics]::FromImage($bmp)
@@ -23,12 +27,12 @@ function Create-Png {
 }
 
 # 1. Generate Favicon PNGs
-Create-Png -sz 16 -outPath (Join-Path $imagesDir "favicon-16x16.png")
-Create-Png -sz 32 -outPath (Join-Path $imagesDir "favicon-32x32.png")
-Create-Png -sz 48 -outPath (Join-Path $imagesDir "favicon-48x48.png")
-Create-Png -sz 180 -outPath (Join-Path $imagesDir "apple-touch-icon.png")
-Create-Png -sz 192 -outPath (Join-Path $imagesDir "android-chrome-192x192.png")
-Create-Png -sz 512 -outPath (Join-Path $imagesDir "android-chrome-512x512.png")
+New-FaviconPng -sz 16 -outPath (Join-Path $imagesDir "favicon-16x16.png")
+New-FaviconPng -sz 32 -outPath (Join-Path $imagesDir "favicon-32x32.png")
+New-FaviconPng -sz 48 -outPath (Join-Path $imagesDir "favicon-48x48.png")
+New-FaviconPng -sz 180 -outPath (Join-Path $imagesDir "apple-touch-icon.png")
+New-FaviconPng -sz 192 -outPath (Join-Path $imagesDir "android-chrome-192x192.png")
+New-FaviconPng -sz 512 -outPath (Join-Path $imagesDir "android-chrome-512x512.png")
 
 # Also copy apple-touch-icon.png to root
 Copy-Item (Join-Path $imagesDir "apple-touch-icon.png") (Join-Path $rootDir "apple-touch-icon.png") -Force
@@ -53,7 +57,8 @@ foreach ($sz in $sizes) {
     $msList.Add($ms)
 }
 
-function Write-IcoFile([string]$outputPath) {
+function Export-IcoFile {
+    param([string]$outputPath)
     $fs = [System.IO.File]::Create($outputPath)
     $bw = New-Object System.IO.BinaryWriter($fs)
     
@@ -91,12 +96,13 @@ function Write-IcoFile([string]$outputPath) {
     Write-Host "Created ICO: $outputPath"
 }
 
-Write-IcoFile (Join-Path $rootDir "favicon.ico")
-Write-IcoFile (Join-Path $imagesDir "favicon.ico")
+Export-IcoFile -outputPath (Join-Path $rootDir "favicon.ico")
+Export-IcoFile -outputPath (Join-Path $imagesDir "favicon.ico")
 
 foreach ($ms in $msList) {
     $ms.Dispose()
 }
 $master.Dispose()
+$msMaster.Dispose()
 
 Write-Host "All favicon files built successfully!"
