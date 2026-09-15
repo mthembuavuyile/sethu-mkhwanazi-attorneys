@@ -1,6 +1,7 @@
 # Robots.txt for Sethu Mkhwanazi Attorneys Inc.
 User-agent: *
 Allow: /
+Disallow: /insights/
 
 # Sitemap URL
 Sitemap: https://sethumkhwanaziattorneys.co.za/sitemap.xml

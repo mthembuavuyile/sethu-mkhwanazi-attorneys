@@ -35,6 +35,13 @@ const pages = [
   { file: 'services/estate-planning-wills.html', dir: 'services', active: 'services', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
   { file: 'services/family-law-attorneys.html', dir: 'services', active: 'services', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
   { file: 'services/labour-employment-law.html', dir: 'services', active: 'services', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
+
+  // Legal Insights Pages
+  { file: 'insights/index.html', dir: 'insights', active: 'insights', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
+  { file: 'insights/ccma-arbitration-disciplinary-hearings.html', dir: 'insights', active: 'insights', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
+  { file: 'insights/intestate-succession-wills-south-africa.html', dir: 'insights', active: 'insights', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
+  { file: 'insights/commercial-contracts-south-africa.html', dir: 'insights', active: 'insights', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
+  { file: 'insights/divorce-process-maintenance-south-africa.html', dir: 'insights', active: 'insights', headerBg: 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' },
 ];
 
 function generateHeader(page) {
@@ -49,11 +56,13 @@ function generateHeader(page) {
     .replace(/\{\{HEADER_BG_CLASS\}\}/g, page.headerBg)
     .replace(/\{\{ACTIVE_HOME\}\}/g, page.active === 'home' ? activeClass : inactiveClass)
     .replace(/\{\{ACTIVE_SERVICES\}\}/g, page.active === 'services' ? activeClass : inactiveClass)
+    .replace(/\{\{ACTIVE_INSIGHTS\}\}/g, page.active === 'insights' ? activeClass : inactiveClass)
     .replace(/\{\{ACTIVE_ABOUT\}\}/g, page.active === 'about' ? activeClass : inactiveClass)
     .replace(/\{\{ACTIVE_CONTACT\}\}/g, page.active === 'contact' ? activeClass : inactiveClass)
     .replace(/\{\{ACTIVE_BOOK\}\}/g, page.active === 'book' ? 'ring-2 ring-accent' : '')
     .replace(/\{\{ACTIVE_HOME_MOBILE\}\}/g, page.active === 'home' ? activeMobileClass : inactiveMobileClass)
     .replace(/\{\{ACTIVE_SERVICES_MOBILE\}\}/g, page.active === 'services' ? activeMobileClass : inactiveMobileClass)
+    .replace(/\{\{ACTIVE_INSIGHTS_MOBILE\}\}/g, page.active === 'insights' ? activeMobileClass : inactiveMobileClass)
     .replace(/\{\{ACTIVE_ABOUT_MOBILE\}\}/g, page.active === 'about' ? activeMobileClass : inactiveMobileClass)
     .replace(/\{\{ACTIVE_CONTACT_MOBILE\}\}/g, page.active === 'contact' ? activeMobileClass : inactiveMobileClass);
 
