@@ -177,13 +177,7 @@
             <!-- Booking Form -->
             <div class="lg:col-span-7">
               <div class="bg-card border border-border rounded-2xl p-8 sm:p-10 shadow-sm">
-                <form id="consultation-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
-                  <!-- Web3Forms Settings -->
-                  <input type="hidden" name="access_key" id="consult-access-key" value="YOUR_ACCESS_KEY_HERE">
-                  <input type="hidden" name="subject" value="New Consultation Request - Sethu Mkhwanazi Attorneys">
-                  <input type="hidden" name="from_name" value="Sethu Mkhwanazi Attorneys Website">
-                  <!-- Honeypot Spam Protection -->
-                  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <form id="consultation-form" class="space-y-8">
                   
                   <div class="space-y-4">
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-accent">1. Contact Information</h3>
@@ -496,59 +490,38 @@
         }
 
         const formData = new FormData(consultationForm);
-        const accessKey = formData.get('access_key');
+        
+        const fullName = formData.get('fullName') || '';
+        const email = formData.get('email') || '';
+        const phone = formData.get('phone') || '';
+        const matterType = formData.get('matterType') || '';
+        const description = formData.get('description') || '';
+        const consultationMode = formData.get('consultationMode') || '';
+        const prefDate = formData.get('prefDate') || '';
+        const prefTime = formData.get('prefTime') || '';
 
-        // Simulation Mode (if access key is placeholder)
-        if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
-          setTimeout(() => {
-            consultationForm.reset();
-            if (prefDateInput) prefDateInput.classList.remove('has-value');
-            if (consultSubmitBtn) {
-              consultSubmitBtn.disabled = false;
-              consultSubmitBtn.innerHTML = originalBtnHtml;
-              if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                lucide.createIcons();
-              }
-            }
-            if (consultFeedback) {
-              consultFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
-              consultFeedback.innerHTML = '<strong>Consultation Request Received!</strong> Our office will review your request and contact you promptly.<br><span class="text-xs opacity-80 mt-1 block"><em>Simulation Mode active:</em> To deliver requests directly to your inbox via GitHub Pages, add your free key from <a href="https://web3forms.com" target="_blank" class="underline font-semibold">web3forms.com</a> to <code>access_key</code> in book-consultation.html.</span>';
-              consultFeedback.classList.remove('hidden');
-            }
-          }, 700);
-          return;
-        }
+        const subject = encodeURIComponent(`New Consultation Request: ${fullName}`);
+        
+        let bodyText = `Full Name: ${fullName}\n`;
+        bodyText += `Email: ${email}\n`;
+        bodyText += `Phone: ${phone}\n`;
+        bodyText += `Practice Area: ${matterType}\n\n`;
+        bodyText += `Description:\n${description}\n\n`;
+        bodyText += `Consultation Preference: ${consultationMode}\n`;
+        bodyText += `Preferred Date: ${prefDate}\n`;
+        bodyText += `Time of Day: ${prefTime}\n`;
 
-        // Live Web3Forms API Mode
-        try {
-          const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-          });
-          const result = await response.json();
+        const body = encodeURIComponent(bodyText);
 
-          if (result.success) {
-            consultationForm.reset();
-            if (prefDateInput) prefDateInput.classList.remove('has-value');
-            if (consultFeedback) {
-              consultFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
-              consultFeedback.innerHTML = '<strong>Consultation Request Received!</strong> Our office will review your request and contact you to confirm the time, consultation format, and details.';
-              consultFeedback.classList.remove('hidden');
-            }
-          } else {
-            if (consultFeedback) {
-              consultFeedback.className = 'p-4 rounded-lg text-sm text-center bg-destructive/10 text-destructive border border-destructive/20';
-              consultFeedback.innerHTML = `<strong>Submission Notice:</strong> ${result.message || 'Unable to submit consultation request. Please call us directly at 031 007 6324.'}`;
-              consultFeedback.classList.remove('hidden');
-            }
-          }
-        } catch (error) {
-          if (consultFeedback) {
-            consultFeedback.className = 'p-4 rounded-lg text-sm text-center bg-destructive/10 text-destructive border border-destructive/20';
-            consultFeedback.innerHTML = '<strong>Network error:</strong> Unable to reach booking service. Please contact us directly at 031 007 6324 or via WhatsApp at 082 594 5643.';
-            consultFeedback.classList.remove('hidden');
-          }
-        } finally {
+        const mailtoLink = `mailto:info@sethumkhwanaziattorneys.co.za?subject=${subject}&body=${body}`;
+        
+        // Open the default email client
+        window.location.href = mailtoLink;
+
+        // Reset form UI after short delay
+        setTimeout(() => {
+          consultationForm.reset();
+          if (prefDateInput) prefDateInput.classList.remove('has-value');
           if (consultSubmitBtn) {
             consultSubmitBtn.disabled = false;
             consultSubmitBtn.innerHTML = originalBtnHtml;
@@ -556,7 +529,12 @@
               lucide.createIcons();
             }
           }
-        }
+          if (consultFeedback) {
+            consultFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
+            consultFeedback.innerHTML = '<strong>Thank you!</strong> Your email client has been opened to send your request.';
+            consultFeedback.classList.remove('hidden');
+          }
+        }, 500);
       });
     }
 

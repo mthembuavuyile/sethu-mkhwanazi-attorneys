@@ -316,13 +316,7 @@
                   </p>
                 </div>
 
-                <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-                  <!-- Web3Forms Settings -->
-                  <input type="hidden" name="access_key" id="contact-access-key" value="YOUR_ACCESS_KEY_HERE">
-                  <input type="hidden" name="subject" value="New Legal Enquiry - Sethu Mkhwanazi Attorneys">
-                  <input type="hidden" name="from_name" value="Sethu Mkhwanazi Attorneys Website">
-                  <!-- Honeypot Spam Protection -->
-                  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <form id="contact-form" class="space-y-6">
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="space-y-2">
                       <label for="firstName" class="text-sm font-medium text-foreground">First Name <span class="text-accent">*</span></label>
@@ -545,57 +539,31 @@
         }
 
         const formData = new FormData(contactForm);
-        const accessKey = formData.get('access_key');
+        const firstName = formData.get('firstName') || '';
+        const lastName = formData.get('lastName') || '';
+        const email = formData.get('email') || '';
+        const phone = formData.get('phone') || '';
+        const serviceArea = formData.get('serviceArea') || '';
+        const message = formData.get('message') || '';
 
-        // Simulation Mode (if access key is placeholder)
-        if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
-          setTimeout(() => {
-            contactForm.reset();
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = originalBtnHtml;
-              if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                lucide.createIcons();
-              }
-            }
-            if (formFeedback) {
-              formFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
-              formFeedback.innerHTML = '<strong>Thank you!</strong> Your enquiry has been received.<br><span class="text-xs opacity-80 mt-1 block"><em>Simulation Mode active:</em> To receive submissions in your email inbox via GitHub Pages, add your free key from <a href="https://web3forms.com" target="_blank" class="underline font-semibold">web3forms.com</a> to <code>access_key</code> in contact.html.</span>';
-              formFeedback.classList.remove('hidden');
-            }
-          }, 700);
-          return;
-        }
+        const subject = encodeURIComponent(`New Legal Enquiry: ${firstName} ${lastName}`);
+        
+        let bodyText = `Name: ${firstName} ${lastName}\n`;
+        bodyText += `Email: ${email}\n`;
+        bodyText += `Phone: ${phone}\n`;
+        bodyText += `Practice Area: ${serviceArea}\n\n`;
+        bodyText += `Message:\n${message}\n`;
 
-        // Live Web3Forms API Mode
-        try {
-          const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-          });
-          const result = await response.json();
+        const body = encodeURIComponent(bodyText);
 
-          if (result.success) {
-            contactForm.reset();
-            if (formFeedback) {
-              formFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
-              formFeedback.innerHTML = '<strong>Thank you!</strong> Your enquiry has been successfully delivered. Our legal team will review your matter and contact you promptly.';
-              formFeedback.classList.remove('hidden');
-            }
-          } else {
-            if (formFeedback) {
-              formFeedback.className = 'p-4 rounded-lg text-sm text-center bg-destructive/10 text-destructive border border-destructive/20';
-              formFeedback.innerHTML = `<strong>Submission Notice:</strong> ${result.message || 'Unable to submit enquiry. Please call us directly at 031 007 6324.'}`;
-              formFeedback.classList.remove('hidden');
-            }
-          }
-        } catch (error) {
-          if (formFeedback) {
-            formFeedback.className = 'p-4 rounded-lg text-sm text-center bg-destructive/10 text-destructive border border-destructive/20';
-            formFeedback.innerHTML = '<strong>Network error:</strong> Unable to reach form service. Please reach out to us directly via WhatsApp (082 594 5643) or telephone (031 007 6324).';
-            formFeedback.classList.remove('hidden');
-          }
-        } finally {
+        const mailtoLink = `mailto:info@sethumkhwanaziattorneys.co.za?subject=${subject}&body=${body}`;
+        
+        // Open the default email client
+        window.location.href = mailtoLink;
+
+        // Reset form UI after short delay
+        setTimeout(() => {
+          contactForm.reset();
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnHtml;
@@ -603,7 +571,12 @@
               lucide.createIcons();
             }
           }
-        }
+          if (formFeedback) {
+            formFeedback.className = 'p-4 rounded-lg text-sm text-center bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20';
+            formFeedback.innerHTML = '<strong>Thank you!</strong> Your email client has been opened to send your enquiry.';
+            formFeedback.classList.remove('hidden');
+          }
+        }, 500);
       });
     }
   </script>
