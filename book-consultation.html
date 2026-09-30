@@ -474,7 +474,7 @@
       prefDateInput.addEventListener('blur', updateDateState);
     }
 
-    // Web3Forms Consultation Request Handler
+    // Mailto Consultation Request Handler
     const consultationForm = document.getElementById('consultation-form');
     const consultFeedback = document.getElementById('consult-feedback');
     const consultSubmitBtn = document.getElementById('consult-submit-btn');
@@ -494,22 +494,41 @@
         const fullName = formData.get('fullName') || '';
         const email = formData.get('email') || '';
         const phone = formData.get('phone') || '';
-        const matterType = formData.get('matterType') || '';
         const description = formData.get('description') || '';
-        const consultationMode = formData.get('consultationMode') || '';
         const prefDate = formData.get('prefDate') || '';
         const prefTime = formData.get('prefTime') || '';
 
+        // Get readable text for dropdowns
+        const matterEl = document.getElementById('matterType');
+        const matterText = matterEl && matterEl.selectedIndex > 0 ? matterEl.options[matterEl.selectedIndex].text : 'Legal Matter';
+        
+        const modeEl = document.getElementById('consultationMode');
+        const modeText = modeEl ? modeEl.options[modeEl.selectedIndex].text : 'consultation';
+
+        const timeEl = document.getElementById('prefTime');
+        const timeText = timeEl ? timeEl.options[timeEl.selectedIndex].text : prefTime;
+
         const subject = encodeURIComponent(`New Consultation Request: ${fullName}`);
         
-        let bodyText = `Full Name: ${fullName}\n`;
-        bodyText += `Email: ${email}\n`;
-        bodyText += `Phone: ${phone}\n`;
-        bodyText += `Practice Area: ${matterType}\n\n`;
-        bodyText += `Description:\n${description}\n\n`;
-        bodyText += `Consultation Preference: ${consultationMode}\n`;
-        bodyText += `Preferred Date: ${prefDate}\n`;
-        bodyText += `Time of Day: ${prefTime}\n`;
+        let bodyText = `Good day,\n\n`;
+        bodyText += `I would like to request a consultation regarding: ${matterText}.\n\n`;
+        bodyText += `Here is a brief summary of the assistance I require:\n`;
+        bodyText += `${description}\n\n`;
+        
+        bodyText += `My preference is a ${modeText}.\n`;
+        if (prefDate) {
+          bodyText += `I would ideally like to schedule this on ${prefDate}`;
+          if (prefTime) bodyText += ` (${timeText})`;
+          bodyText += `.\n\n`;
+        } else {
+          bodyText += `\n`;
+        }
+        
+        bodyText += `Please contact me to confirm availability and arrangements:\n`;
+        bodyText += `Name: ${fullName}\n`;
+        bodyText += `Phone/WhatsApp: ${phone}\n`;
+        bodyText += `Email: ${email}\n\n`;
+        bodyText += `Kind regards,\n${fullName}`;
 
         const body = encodeURIComponent(bodyText);
 

@@ -523,7 +523,7 @@
   
   <script src="js/components.js"></script>
   <script>
-    // Web3Forms & Simulated Form Submission Handler
+    // Mailto Form Submission Handler
     const contactForm = document.getElementById('contact-form');
     const formFeedback = document.getElementById('form-feedback');
     const submitBtn = document.getElementById('submit-btn');
@@ -543,16 +543,25 @@
         const lastName = formData.get('lastName') || '';
         const email = formData.get('email') || '';
         const phone = formData.get('phone') || '';
-        const serviceArea = formData.get('serviceArea') || '';
         const message = formData.get('message') || '';
+        const fullName = `${firstName} ${lastName}`.trim();
 
-        const subject = encodeURIComponent(`New Legal Enquiry: ${firstName} ${lastName}`);
+        // Get readable text for dropdown
+        const serviceEl = document.getElementById('serviceArea');
+        const serviceText = serviceEl ? serviceEl.options[serviceEl.selectedIndex].text : 'General Legal Enquiry';
+
+        const subject = encodeURIComponent(`New Legal Enquiry: ${fullName}`);
         
-        let bodyText = `Name: ${firstName} ${lastName}\n`;
-        bodyText += `Email: ${email}\n`;
-        bodyText += `Phone: ${phone}\n`;
-        bodyText += `Practice Area: ${serviceArea}\n\n`;
-        bodyText += `Message:\n${message}\n`;
+        let bodyText = `Good day,\n\n`;
+        bodyText += `I am reaching out regarding the following practice area: ${serviceText}.\n\n`;
+        bodyText += `Here are the details of my enquiry:\n`;
+        bodyText += `${message}\n\n`;
+        
+        bodyText += `Please find my contact information below to get back to me:\n`;
+        bodyText += `Name: ${fullName}\n`;
+        bodyText += `Phone/WhatsApp: ${phone}\n`;
+        bodyText += `Email: ${email}\n\n`;
+        bodyText += `Kind regards,\n${fullName}`;
 
         const body = encodeURIComponent(bodyText);
 
